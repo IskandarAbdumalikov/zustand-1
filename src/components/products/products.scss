@@ -1,5 +1,4 @@
 .products {
-  padding-top: 60px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
@@ -80,4 +79,39 @@
     color: white;
     background: red;
   }
+}
+
+.see-btn {
+  width: 150px;
+  height: 50px;
+  border: 1px solid green;
+  background: green;
+  border-radius: 5px;
+  color: white;
+  transition: 0.4s;
+}
+.see-btn:hover {
+  background: white;
+  color: green;
+}
+
+.disabled {
+  background: gray;
+  cursor: no-drop;
+  border: 1px solid gray;
+}
+
+.disabled:hover {
+  background: gray;
+  cursor: no-drop;
+  border: 1px solid gray;
+  color: white;
+}
+
+.products__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-items: center;
+  padding: 60px 0px;
 }

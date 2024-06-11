@@ -17,6 +17,7 @@ const Products = () => {
   const toggle = wishlistStore((state) => state.toggle);
 
   const [likedProducts, setLikedProducts] = useState({});
+  const [offset, setOffset] = useState(1);
 
   useEffect(() => {
     fetchProducts();
@@ -36,39 +37,63 @@ const Products = () => {
   };
 
   return (
-    <div className="products">
-      {productsData?.map((product) => (
-        <div key={product.id} className="product__card">
-          <NavLink
-            onClick={() => fetchSingleProduct(product.id)}
-            to={`/singleProduct/${product.id}`}
-          >
-            <img src={product.images[0]} alt="" />
-          </NavLink>
-          <div className="product__card__info">
-            <h2>{product.title}</h2>
-            <p>{product.desc}</p>
-            <h2>{product.brand}</h2>
-            <h3>{product.price} USD</h3>
-            <div className="product__card__info__btns">
-              <button className="edit-btn" onClick={() => handleEditClick(product.id)}>Edit</button>
-              <button className="delete-btn" onClick={() => deleteProduct(product.id)}>Delete</button>
-              <button className="like-btn" onClick={() => handleLike(product)}>
-                {likedProducts[product.id] ? <FaHeart /> : <CiHeart />}
-              </button>
+    <div className="products__wrapper">
+      <div className="products">
+        {productsData?.slice(0, 8 * offset).map((product) => (
+          <div key={product.id} className="product__card">
+            <NavLink
+              onClick={() => fetchSingleProduct(product.id)}
+              to={`/singleProduct/${product.id}`}
+            >
+              <img src={product.images[0]} alt="" />
+            </NavLink>
+            <div className="product__card__info">
+              <h2>{product.title}</h2>
+              <p>{product.desc}</p>
+              <h2>{product.brand}</h2>
+              <h3>{product.price} USD</h3>
+              <div className="product__card__info__btns">
+                <button
+                  className="edit-btn"
+                  onClick={() => handleEditClick(product.id)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="delete-btn"
+                  onClick={() => deleteProduct(product.id)}
+                >
+                  Delete
+                </button>
+                <button
+                  className="like-btn"
+                  onClick={() => handleLike(product)}
+                >
+                  {likedProducts[product.id] ? <FaHeart /> : <CiHeart />}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
-      {showModule && (
-        <EditModule
-          productId={selectedProductId}
-          onClose={() => setShowModule(false)}
-        />
-      )}
-      {showModule && (
-        <div onClick={() => setShowModule(false)} className="overlay"></div>
-      )}
+        ))}
+        {showModule && (
+          <EditModule
+            productId={selectedProductId}
+            onClose={() => setShowModule(false)}
+          />
+        )}
+        {showModule && (
+          <div onClick={() => setShowModule(false)} className="overlay"></div>
+        )}
+      </div>
+      <button
+        disabled={productsData?.length / 8 > offset}
+        className={
+          productsData?.length / 8 > offset ? "see-btn" : "see-btn disabled"
+        }
+        onClick={() => setOffset((p) => p + 1)}
+      >
+        {productsData?.length / 8 > offset ? "See more" : "No other products"}
+      </button>
     </div>
   );
 };
