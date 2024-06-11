@@ -86,7 +86,6 @@ const Products = () => {
         )}
       </div>
       <button
-        disabled={productsData?.length / 8 > offset}
         className={
           productsData?.length / 8 > offset ? "see-btn" : "see-btn disabled"
         }
