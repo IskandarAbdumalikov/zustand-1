@@ -1,0 +1,14 @@
+.empty{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    padding-top: 200px;
+    justify-content: center;
+    img{
+        width: 150px;
+    }
+    a{
+        color: blue;
+    }
+}
